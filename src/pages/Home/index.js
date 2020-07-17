@@ -18,9 +18,9 @@ export default class Home extends Component {
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        items: result.jokes
+                        items: result.News
                     });
-                    console.log(result.jokes)
+                    console.log(result)
                 },
                 (error) => {
                     this.setState({
@@ -36,13 +36,21 @@ export default class Home extends Component {
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            return (
+                <div className="loading-div">
+                    <h2>Loading ...</h2>
+                </div>
+            )
         } else {
             return (
                 <div>
                     {items.map(item => (
-                        <Card key={item.id} text={item.text}>
-                    
+                        <Card 
+                        key={item.Date} 
+                        title={item.Title}
+                        author={item.Author}
+                        date={item.date}
+                        >
                         </Card>
                     ))}
                 </div>
