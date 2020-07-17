@@ -16,7 +16,7 @@ export default function Header(props) {
                     <option value="Health">Health</option>
                     <option value="Sports">Sports</option>
                 </select>
-                <button className="sort-btn">Sort By Most Recent</button>
+                {/* <button onClick={props.handleSort} className="sort-btn">Sort By Most Recent</button> */}
             </div>
         </div>
     )

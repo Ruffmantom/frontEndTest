@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Card from "../../components/Card";
 import Header from "../../components/Header";
+var sortJsonArray = require('sort-json-array');
 
 
 export default class Home extends Component {
@@ -18,10 +19,13 @@ export default class Home extends Component {
             .then(res => res.json())
             .then(
                 (result) => {
+                    sortJsonArray(result.News, "date", "des")
+                    
                     this.setState({
                         isLoaded: true,
                         items: result.News
                     });
+                    
                     console.log(result)
                 },
                 (error) => {
@@ -33,15 +37,20 @@ export default class Home extends Component {
             )
             
     }
+    // handleSort = (data) =>{
+    //     this.setState({items: sortJsonArray(data.News, "date", "des") })
+    // }
     
     checkHandler = (e) => {
         this.setState({choice: e});
         console.log(e)
       }
-
+    
     render() {
         
         const { error, isLoaded, items, choice } = this.state;
+
+
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -57,6 +66,7 @@ export default class Home extends Component {
                     <div>
                         <Header
                         checkHandler={this.checkHandler}
+                        // handleSort={this.handleSort(items)}
                         />
                         {choiceArr.map(item => (
                             <Card 
@@ -75,6 +85,7 @@ export default class Home extends Component {
                     <div>
                         <Header
                         checkHandler={this.checkHandler}
+                        // handleSort={this.handleSort(items)}
                         />
                         {choiceArr.map(item => (
                             <Card 
@@ -93,6 +104,7 @@ export default class Home extends Component {
                     <div>
                         <Header
                         checkHandler={this.checkHandler}
+                        // handleSort={this.handleSort(items)}
                         />
                         {choiceArr.map(item => (
                             <Card 
@@ -110,6 +122,7 @@ export default class Home extends Component {
                     <div>
                         <Header
                         checkHandler={this.checkHandler}
+                        // handleSort={this.handleSort(items)}
                         />
                         {items.map(item => (
                             <Card 
