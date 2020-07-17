@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Card from "../../components/card";
+import Card from "../../components/Card";
+import Header from "../../components/Header";
 
 
 export default class Home extends Component {
@@ -8,7 +9,8 @@ export default class Home extends Component {
         this.state = {
             error: null,
             isLoaded: false,
-            items: []
+            items: [],
+            choice: ""
         };
     }
     componentDidMount() {
@@ -29,10 +31,17 @@ export default class Home extends Component {
                     });
                 }
             )
+            
     }
+    
+    checkHandler = (e) => {
+        this.setState({choice: e});
+        console.log(e)
+      }
 
     render() {
-        const { error, isLoaded, items } = this.state;
+        
+        const { error, isLoaded, items, choice } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -42,21 +51,79 @@ export default class Home extends Component {
                 </div>
             )
         } else {
-            return (
-                <div>
-                    {items.map(item => (
-                        <Card 
-                        key={item.Date} 
-                        title={item.Title}
-                        author={item.Author}
-                        date={item.date}
-                        >
-                        </Card>
-                    ))}
-                </div>
-
-
-            );
+            if(choice === "Politics"){
+                let choiceArr = items.filter(item => item.Catagory === "Politics")
+                return (
+                    <div>
+                        <Header
+                        checkHandler={this.checkHandler}
+                        />
+                        {choiceArr.map(item => (
+                            <Card 
+                            key={item.Date} 
+                            title={item.Title}
+                            author={item.Author}
+                            date={item.date}
+                            >
+                            </Card>
+                        ))}
+                    </div>    
+                );
+            }else if(choice === "Health"){
+                let choiceArr = items.filter(item => item.Catagory === "Health")
+                return (
+                    <div>
+                        <Header
+                        checkHandler={this.checkHandler}
+                        />
+                        {choiceArr.map(item => (
+                            <Card 
+                            key={item.Date} 
+                            title={item.Title}
+                            author={item.Author}
+                            date={item.date}
+                            >
+                            </Card>
+                        ))}
+                    </div>  
+                )
+            } else if(choice === "Sports"){
+                let choiceArr = items.filter(item => item.Catagory === "Sports")
+                return (
+                    <div>
+                        <Header
+                        checkHandler={this.checkHandler}
+                        />
+                        {choiceArr.map(item => (
+                            <Card 
+                            key={item.Date} 
+                            title={item.Title}
+                            author={item.Author}
+                            date={item.date}
+                            >
+                            </Card>
+                        ))}
+                    </div>  
+                )
+            } else{
+                return (
+                    <div>
+                        <Header
+                        checkHandler={this.checkHandler}
+                        />
+                        {items.map(item => (
+                            <Card 
+                            key={item.Date} 
+                            title={item.Title}
+                            author={item.Author}
+                            date={item.date}
+                            >
+                            </Card>
+                        ))}
+                    </div>  
+                )
+            }
+            
         }
     }
 }
